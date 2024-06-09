@@ -101,6 +101,11 @@ cd /path/to/your/project
 ```sh
 python update_sheet.py
 ```
+4. Script to update prices
+
+```sh
+python update_prices.py
+```
 
 ## Closing the Virtual Environment
 Deactivate the Virtual Environment: 
