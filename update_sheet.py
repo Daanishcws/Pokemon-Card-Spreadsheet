@@ -37,7 +37,7 @@ except gspread.exceptions.WorksheetNotFound:
 details_sheet.clear()
 
 # Prepare to update the "Card Details" sheet with card details
-headers = ['Card Name', 'Set', 'Number', 'Rarity', 'Type', 'Subtype', 'Price', 'Image URL', 'Date Added']
+headers = ['Unique ID', 'Card Name', 'Set', 'Number', 'Rarity', 'Type', 'Subtype', 'Price', 'Image URL', 'Date Added']
 details_sheet.append_row(headers)
 
 # Fetch and write details for each card
@@ -61,7 +61,8 @@ for index, card in enumerate(cards):
             prices = card_detail.get('cardmarket', {}).get('prices', {}).get('averageSellPrice', 'N/A')
             image_url = card_detail.get('images', {}).get('large')
             date_added = datetime.now().strftime('%Y-%m-%d')
-            row = [name, set_name, card_number, rarity, types, subtypes, prices, image_url, date_added]
+            unique_id = f"{name}-{set_name}-{card_number}"
+            row = [unique_id, name, set_name, card_number, rarity, types, subtypes, prices, image_url, date_added]
             details_sheet.append_row(row)
             collection_sheet.update_cell(index + 2, 3, "Fetched")
             collection_sheet.update_cell(index + 2, error_column, "")
