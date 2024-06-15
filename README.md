@@ -15,6 +15,7 @@ This repository contains a set of Python scripts to manage and update your Poké
   - [update_card_prices.py](#update_card_pricespy)
 - [Troubleshooting](#troubleshooting)
 - [Credits](#credits)
+- [Donations](#donations)
 
 ## Prerequisites
 
