@@ -1,117 +1,105 @@
-# Pokémon Card Collection Script
+# PokéCard Price Updater
 
-This script fetches details about your Pokémon card collection from the Pokémon TCG API and updates a Google Sheet with the information. It includes card details such as type, subtype, rarity, price, and more.
+This repository contains a set of Python scripts to manage and update your Pokémon card collection. The scripts use the Pokémon TCG API to fetch and update card details and prices in a Google Sheets document. This README provides detailed instructions on setting up and using the scripts.
 
 ## Table of Contents
-- [Requirements](#requirements)
-- [Setup](#setup)
-- [API Setup](#api-setup)
-- [Google Sheets Setup](#google-sheets-setup)
-- [Google Cloud Console Setup](#google-cloud-console-setup)
-- [Running the Script](#running-the-script)
-- [Closing the Virtual Environment](#closing-the-virtual-environment)
+
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+  - [Fetching Card Details](#fetching-card-details)
+  - [Updating Card Prices](#updating-card-prices)
+- [Scripts Overview](#scripts-overview)
+  - [fetch_card_details.py](#fetch_card_detailspy)
+  - [update_card_prices.py](#update_card_pricespy)
+- [Troubleshooting](#troubleshooting)
 - [Credits](#credits)
 
-## Requirements
+## Prerequisites
 
-- Python 3.x
-- Google Sheets API credentials
-- Required Python packages: `gspread`, `oauth2client`, `requests`
+Before you begin, ensure you have met the following requirements:
 
-## Setup
+- You have Python 3.x installed on your machine.
+- You have a Google Cloud project with the Google Sheets API enabled.
+- You have a Pokémon TCG API key. You can get one from [Pokémon TCG Developer Portal](https://developer.pokemontcg.io/).
 
-### 1. Install Python Packages
+## Installation
 
-Open your terminal or command prompt and install the required packages:
+1. Clone the repository:
 
-```sh
-pip install gspread oauth2client requests
-
+```bash
+git clone https://github.com/yourusername/pokecard-price-updater.git
+cd pokecard-price-updater
 ```
-## API Setup
 
-1. Go to this website and sign up to get access to the API: https://dev.pokemontcg.io
+2. Create a virtual environment and activate it:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+```
 
-## Google Sheets Setup
+3. Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
+## Configuration
 
-1. **Create a Google Sheet**:
-   - Name it "Pokecard List".
+1. Google Sheets API Credentials:
 
-2. **Create Sheets in the Google Sheet**:
-   - **Collection**: 
-     - Columns: `Card Name`, `Card Number`, `Status`
-     - Input your card information here.
+- Follow the instructions on Google Cloud Platform to create a service account and download the credentials JSON file.
+- Save the JSON file in the project directory and rename it to `credentials.json`.
+  
+2. Environment Variables:
 
-   - **Card Details**:
-     - Columns: `Card Name`, `Set`, `Number`, `Rarity`, `Type`, `Subtype`, `Price`, `Image URL`, `Date Added`
+Create a `.env` file in the project directory and add the following variables:
+```bash
+POKEMON_TCG_API_KEY=your_pokemon_tcg_api_key
+GOOGLE_SHEETS_CREDENTIALS=credentials.json
+SHEET_NAME=Pokecard List
+```
+## Usage
+### Fetching Card Details
+The `fetch_card_details.py` script fetches detailed information about cards listed in your Google Sheets document. Cards marked with the status `pending` or `search` will be processed.
+
+To run the script:
+```bash
+python fetch_card_details.py
+```
+### Updating Card Prices
+The update_card_prices.py script updates the prices of cards in your Google Sheets document. It uses unique identifiers to fetch the latest prices from the Pokémon TCG API.
+
+To run the script:
+```bash
+python update_card_prices.py
+```
+## Scripts Overview
+
+### fetch_card_details.py
+Description
+This script reads the card details from the Google Sheets document, fetches additional information from the Pokémon TCG API, and updates the sheet with the fetched details.
+
+- Input: Google Sheets with card details (name, number, status, etc.)
+- Output: Updated Google Sheets with detailed card information.
+  
+### update_card_prices.py
+Description
+This script updates the prices of cards in the Google Sheets document using their unique identifiers. It fetches the latest prices from the Pokémon TCG API and updates the sheet.
+
+- Input: Google Sheets with card details (including unique identifiers)
+- Output: Updated Google Sheets with the latest card prices.
+  
+## Troubleshooting
+Common Issues
+
+-Quota Exceeded:
+   - If you encounter quota exceeded errors, try reducing the number of API requests by batching updates or adding delays between requests.
+
+-Authentication Errors:
+   - Ensure your credentials.json file is correctly configured and the service account has the necessary permissions to access the Google Sheets API.
    
-   - **Statistics**:
-     - Use this sheet for tracking metrics about your card collection (optional).
-
-**Example Input in "Collection" Sheet**:
-
-| Card Name | Card Number | Status  |
-|-----------|-------------|---------|
-| Pikachu   | 58/102      | Pending |
-| Charizard | 4/102       | Pending |
-| Bulbasaur | 44/102      | Fetched |
-
-## Google Cloud Console Setup
-
-1. **Create a Project**:
-   - Go to the [Google Cloud Console](https://console.cloud.google.com/).
-   - Create a new project.
-
-2. **Enable Google Sheets API**:
-   - Go to the API library in the Google Cloud Console.
-   - Search for "Google Sheets API" and enable it.
-
-3. **Create Service Account Credentials**:
-   - Go to the "Credentials" section.
-   - Create a new service account.
-   - Grant the service account access to the "Editor" role.
-   - Create and download the JSON key file. Name it `credentials.json`.
-
-4. **Share the Google Sheet**:
-   - Share the Google Sheet with the service account email (found in the `credentials.json` file).
-
-## Running the Script
-
-### 1. Activate Virtual Environment
-
-#### On macOS/Linux:
-
-```sh
-source myenv/bin/activate
-```
-
-On Windows:
-
-```sh
-myenv\Scripts\activate
-```
-2. Navigate to Project Directory
-   
-```sh
-cd /path/to/your/project
-```
-
-3. Run the Script
-
-```sh
-python update_sheet.py
-```
-4. Script to update prices
-
-```sh
-python update_prices.py
-```
-
-## Closing the Virtual Environment
-Deactivate the Virtual Environment: 
-```sh
-Deactivate
-```
+Debugging Tips
+- Use logging to trace issues. The scripts include detailed logging to help you debug any issues that arise during execution.
 
 ## Credits
 - Google Sheets API: Google Developers
