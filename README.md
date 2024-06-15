@@ -106,3 +106,47 @@ Debugging Tips
 - Pokémon TCG API: Pokémon TCG Developers
 - Python Packages: `gspread`, `oauth2client`, `requests`
 
+## Donations
+If you find this project useful and would like to support its development, [please consider donating](paypal.me/Daanishcws). Your support is greatly appreciated!
+
+## Detailed Instructions for Scripts
+### fetch_card_details.py
+Description
+This script is designed to fetch detailed information about Pokémon cards listed in your Google Sheets document. Cards marked with the status `pending` or `search` will be processed and updated with the detailed card information fetched from the Pokémon TCG API.
+
+Workflow
+1. Read Data: Reads card details from the specified Google Sheets document.
+2. Fetch Details: For each card marked as `pending` or `search`, it queries the Pokémon TCG API.
+3. Update Sheet: Updates the Google Sheets document with the fetched details, including images, card set, rarity, and other relevant information.
+   
+Usage
+
+Run the script using the following command:
+```bash
+python fetch_card_details.py
+```
+### update_card_prices.py
+Description
+This script updates the prices of Pokémon cards listed in your Google Sheets document. It uses unique identifiers for each card to fetch the latest prices from the Pokémon TCG API and updates the sheet accordingly.
+
+Workflow
+1. Read Data: Reads card details from the specified Google Sheets document.
+2. Fetch Prices: For each card with a unique identifier, it queries the Pokémon TCG API to get the latest price information.
+3. Update Prices: Updates the price column in the Google Sheets document with the fetched prices, without altering other card details.
+Usage
+Run the script using the following command:
+```bash
+python update_card_prices.py
+```
+## Handling API Limits
+Both scripts include mechanisms to handle API rate limits and quota restrictions. If a quota limit is exceeded, the scripts will wait and retry the request after a specified delay. This ensures that the scripts can complete their tasks even when the API usage is high.
+
+## Error Handling
+The scripts are designed to log detailed error messages to help you identify and resolve issues quickly. If an error occurs, the scripts will log the error message and continue processing the remaining cards.
+
+## Conclusion
+This project aims to streamline the management of your Pokémon card collection by automating the process of fetching detailed card information and updating prices. By following the setup and usage instructions provided in this README, you should be able to efficiently manage your card collection and keep it up-to-date with the latest market prices.
+
+For any issues or questions, feel free to open an issue on the GitHub repository or contact the project maintainers.
+
+Happy collecting!
