@@ -107,7 +107,7 @@ Debugging Tips
 - Python Packages: `gspread`, `oauth2client`, `requests`
 
 ## Donations
-If you find this project useful and would like to support its development, [please consider donating](paypal.me/Daanishcws). Your support is greatly appreciated!
+If you find this project useful and would like to support its development, [please consider donating](https://www.paypal.com/paypalme/Daanishcws). Your support is greatly appreciated!
 
 ## Detailed Instructions for Scripts
 ### fetch_card_details.py
