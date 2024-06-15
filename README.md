@@ -22,7 +22,7 @@ Before you begin, ensure you have met the following requirements:
 
 - You have Python 3.x installed on your machine.
 - You have a Google Cloud project with the Google Sheets API enabled.
-- You have a Pokémon TCG API key. You can get one from [Pokémon TCG Developer Portal](https://developer.pokemontcg.io/).
+- You have a Pokémon TCG API key. You can get one from [Pokémon TCG Developer Portal](https://dev.pokemontcg.io/dashboard).
 
 ## Installation
 
